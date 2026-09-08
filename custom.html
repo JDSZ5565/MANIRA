@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>MANIRA — Create Your Bracelet</title>
+
+  <meta
+    name="description"
+    content="ออกแบบกำไลหิน MANIRA ของคุณเอง เลือกความหมาย หิน ขนาด และองค์ประกอบที่ต้องการ"
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================
+       RESET + TOKENS
+    ========================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: #f3f0e9;
+      color: #191713;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    :root {
+      --cream: #f3f0e9;
+      --cream-deep: #e6ded1;
+      --paper: #f8f5ef;
+      --ink: #171511;
+      --ink-soft: #3d3832;
+      --gold: #a88d5f;
+      --gold-light: #c7b38d;
+      --line: rgba(23, 21, 17, 0.14);
+      --muted: #776f65;
+      --container: 1320px;
+    }
+
+    .container {
+      width: min(92%, var(--container));
+      margin: auto;
+    }
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================== */
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      display: flex;
+      justify-content: center;
+
+      padding: 16px 30px;
+    }
+
+    .nav-shell {
+      width: min(1120px, 95%);
+      height: 58px;
+
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr;
+      align-items: center;
+
+      padding: 0 28px;
+
+      background: rgba(243, 240, 233, 0.92);
+      border: 1px solid rgba(23, 21, 17, 0.09);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow: 0 10px 45px rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-group-left {
+      justify-content: flex-end;
+    }
+
+    .nav-group-right {
+      justify-content: flex-start;
+    }
+
+    .nav-group a {
+      position: relative;
+
+      color: #27231f;
+
+      font-size: 9px;
+      font-weight: 500;
+
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .nav-group a::after {
+      content: "";
+
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--ink);
+
+      transform: translateX(-50%);
+
+      transition: width 0.3s ease;
+    }
+
+    .nav-group a:hover::after,
+    .nav-group a.active::after {
+      width: 100%;
+    }
+
+    .nav-monogram {
+      width: 40px;
+      height: 40px;
+
+      margin: auto;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid rgba(23, 21, 17, 0.24);
+      border-radius: 50%;
+
+      font-family: "Playfair Display", serif;
+      font-size: 19px;
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      gap: 25px;
+
+      background: var(--cream);
+
+      transform: translateY(-100%);
+      transition: 0.55s cubic-bezier(.76, 0, .24, 1);
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    .mobile-menu a {
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+    }
+
+    .mobile-close {
+      position: absolute;
+      top: 26px;
+      right: 28px;
+
+      border: 0;
+      background: transparent;
+
+      font-size: 30px;
+    }
+
+    /* =========================================================
+       PAGE INTRO
+    ========================================================== */
+
+    .page-hero {
+      position: relative;
+
+      padding: 170px 0 72px;
+
+      background:
+        radial-gradient(circle at 82% 15%, rgba(255, 255, 255, 0.72), transparent 28%),
+        linear-gradient(135deg, #f3f0e9 0%, #e8e0d4 100%);
+
+      overflow: hidden;
+    }
+
+    .page-hero::after {
+      content: "MANIRA";
+
+      position: absolute;
+      right: -36px;
+      bottom: -62px;
+
+      font-family: "Playfair Display", serif;
+      font-size: clamp(140px, 21vw, 320px);
+      line-height: 0.8;
+      letter-spacing: 18px;
+
+      color: rgba(66, 54, 40, 0.035);
+
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 38px;
+
+      color: #857a6c;
+
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 70px;
+
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-block;
+
+      margin-bottom: 20px;
+
+      color: var(--gold);
+
+      font-size: 9px;
+      font-weight: 600;
+
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(58px, 7.5vw, 108px);
+      font-weight: 400;
+      line-height: 0.94;
+
+      letter-spacing: -2px;
+    }
+
+    .hero-title em {
+      color: #92754a;
+      font-weight: 400;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      margin-top: 22px;
+
+      color: #675d51;
+
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-note::before {
+      content: "";
+
+      width: 42px;
+      height: 1px;
+
+      background: var(--gold);
+    }
+
+    /* =========================================================
+       BUILDER
+    ========================================================== */
+
+    .builder-section {
+      position: relative;
+
+      padding: 80px 0 120px;
+
+      background: var(--paper);
+    }
+
+    .builder-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(390px, 0.95fr);
+      gap: 48px;
+
+      align-items: start;
+    }
+
+    /* =========================================================
+       PROGRESS
+    ========================================================== */
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .progress-step {
+      position: relative;
+
+      min-height: 86px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 0 18px;
+
+      border: 0;
+      background: transparent;
+
+      color: #8a8176;
+
+      text-align: left;
+
+      transition:
+        color 0.3s ease,
+        background 0.3s ease;
+    }
+
+    .progress-step + .progress-step {
+      border-left: 1px solid var(--line);
+    }
+
+    .progress-step .num {
+      font-family: "Playfair Display", serif;
+      font-size: 17px;
+    }
+
+    .progress-step .label {
+      font-size: 9px;
+      font-weight: 500;
+
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .progress-step.active {
+      color: var(--ink);
+      background: rgba(168, 141, 95, 0.07);
+    }
+
+    .progress-step.done {
+      color: #665843;
+    }
+
+    .progress-step.active::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+
+      height: 2px;
+
+      background: var(--gold);
+    }
+
+    /* =========================================================
+       EDITOR PANEL
+    ========================================================== */
+
+    .editor-panel {
+      min-width: 0;
+    }
+
+    .step {
+      display: none;
+      animation: stepIn 0.45s ease both;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes stepIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-kicker {
+      margin-bottom: 12px;
+
+      color: var(--gold);
+
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .step-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .step-description {
+      max-width: 620px;
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 11px;
+
+      margin-top: 34px;
+    }
+
+    .choice {
+      position: relative;
+
+      width: 100%;
+
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      align-items: center;
+
+      gap: 15px;
+
+      padding: 18px 20px;
+
+      border: 1px solid rgba(23, 21, 17, 0.13);
+      background: #f7f4ee;
+
+      color: var(--ink);
+
+      text-align: left;
+
+      transition:
+        border-color 0.28s ease,
+        background 0.28s ease,
+        transform 0.28s ease;
+    }
+
+    .choice:hover {
+      transform: translateX(4px);
+      border-color: rgba(23, 21, 17, 0.35);
+    }
+
+    .choice.selected {
+      border-color: var(--ink);
+      background: #ede7dc;
+    }
+
+    .choice-index {
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      color: #9a825d;
+    }
+
+    .choice-main strong {
+      display: block;
+
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .choice-main small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .choice-mark {
+      width: 26px;
+      height: 26px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid rgba(23, 21, 17, 0.22);
+      border-radius: 50%;
+
+      color: transparent;
+
+      font-size: 12px;
+
+      transition:
+        background 0.28s ease,
+        color 0.28s ease,
+        border-color 0.28s ease;
+    }
+
+    .choice.selected .choice-mark {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: white;
+    }
+
+    /* =========================================================
+       STONE CHOICES
+    ========================================================== */
+
+    .stone-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+
+      margin-top: 28px;
+      margin-bottom: 17px;
+    }
+
+    .stone-toolbar p {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .selected-count {
+      color: #756249;
+
+      font-size: 9px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    .stone-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 10px;
+    }
+
+    .stone-choice {
+      position: relative;
+
+      min-height: 135px;
+
+      padding: 16px;
+
+      border: 1px solid rgba(23, 21, 17, 0.12);
+      background: #f7f4ee;
+
+      text-align: left;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .stone-choice:hover {
+      transform: translateY(-3px);
+      border-color: rgba(23, 21, 17, 0.3);
+    }
+
+    .stone-choice.selected {
+      border-color: var(--ink);
+      background: #ece5da;
+    }
+
+    .stone-choice.recommended::after {
+      content: "RECOMMENDED";
+
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      color: #886f48;
+
+      font-size: 7px;
+      letter-spacing: 1px;
+    }
+
+    .stone-swatch {
+      width: 34px;
+      height: 34px;
+
+      margin-bottom: 15px;
+
+      border-radius: 50%;
+
+      background: var(--stone);
+
+      box-shadow:
+        inset -7px -8px 14px rgba(0, 0, 0, 0.2),
+        inset 6px 6px 12px rgba(255, 255, 255, 0.25),
+        0 6px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .stone-choice strong {
+      display: block;
+
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .stone-choice small {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.4;
+
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       SIZE
+    ========================================================== */
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 12px;
+
+      margin-top: 32px;
+    }
+
+    .size-option {
+      min-height: 145px;
+
+      padding: 22px;
+
+      border: 1px solid rgba(23, 21, 17, 0.13);
+      background: #f7f4ee;
+
+      text-align: left;
+
+      transition:
+        border-color 0.28s ease,
+        background 0.28s ease,
+        transform 0.28s ease;
+    }
+
+    .size-option:hover {
+      transform: translateY(-3px);
+    }
+
+    .size-option.selected {
+      border-color: var(--ink);
+      background: #ece5da;
+    }
+
+    .size-option .size-letter {
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .size-option strong {
+      display: block;
+
+      margin-top: 16px;
+
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .size-option small {
+      display: block;
+
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .custom-size {
+      margin-top: 14px;
+      padding: 18px 20px;
+
+      border: 1px solid rgba(23, 21, 17, 0.13);
+      background: #f7f4ee;
+    }
+
+    .custom-size label {
+      display: block;
+
+      margin-bottom: 9px;
+
+      font-size: 9px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .custom-size-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .custom-size input {
+      width: 120px;
+
+      padding: 12px 13px;
+
+      border: 1px solid rgba(23, 21, 17, 0.22);
+      background: transparent;
+
+      outline: none;
+    }
+
+    .custom-size span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================== */
+
+    .element-group {
+      margin-top: 32px;
+    }
+
+    .element-group + .element-group {
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .element-label {
+      margin-bottom: 14px;
+
+      color: #6d6256;
+
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .element-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 10px;
+    }
+
+    .element-option {
+      min-height: 116px;
+
+      padding: 18px;
+
+      border: 1px solid rgba(23, 21, 17, 0.13);
+      background: #f7f4ee;
+
+      text-align: left;
+
+      transition:
+        border-color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+    }
+
+    .element-option:hover {
+      transform: translateY(-3px);
+    }
+
+    .element-option.selected {
+      border-color: var(--ink);
+      background: #ece5da;
+    }
+
+    .element-symbol {
+      width: 30px;
+      height: 30px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 14px;
+
+      border-radius: 50%;
+      border: 1px solid rgba(23, 21, 17, .2);
+
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+    }
+
+    .element-option strong {
+      display: block;
+
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .element-option small {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       REVIEW
+    ========================================================== */
+
+    .review-card {
+      margin-top: 30px;
+
+      border: 1px solid var(--line);
+      background: #f7f4ee;
+    }
+
+    .review-row {
+      display: grid;
+      grid-template-columns: 155px 1fr;
+
+      gap: 22px;
+
+      padding: 18px 20px;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .review-row:last-child {
+      border-bottom: 0;
+    }
+
+    .review-row dt {
+      color: var(--muted);
+
+      font-size: 9px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    .review-row dd {
+      font-family: "Playfair Display", serif;
+      font-size: 17px;
+    }
+
+    .review-note {
+      margin-top: 16px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 24px;
+    }
+
+    .final-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+
+      padding: 15px 20px;
+
+      border: 1px solid var(--ink);
+
+      background: var(--ink);
+      color: white;
+
+      font-size: 9px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+
+      transition:
+        background .25s ease,
+        color .25s ease;
+    }
+
+    .final-btn.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .final-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+
+    /* =========================================================
+       STEP ACTIONS
+    ========================================================== */
+
+    .step-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 14px;
+
+      margin-top: 30px;
+    }
+
+    .back-btn,
+    .next-btn {
+      min-height: 52px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 18px;
+
+      padding: 0 23px;
+
+      font-size: 9px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+
+      transition:
+        background .28s ease,
+        color .28s ease,
+        border-color .28s ease;
+    }
+
+    .back-btn {
+      border: 1px solid rgba(23, 21, 17, 0.25);
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .next-btn {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    .next-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .back-btn:hover {
+      border-color: var(--ink);
+    }
+
+    .back-btn.hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .validation-message {
+      min-height: 18px;
+
+      margin-top: 14px;
+
+      color: #8b533c;
+
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       LIVE PREVIEW
+    ========================================================== */
+
+    .preview-panel {
+      position: sticky;
+      top: 96px;
+
+      min-height: 690px;
+
+      padding: 28px;
+
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08), transparent 30%),
+        #1a1815;
+
+      color: white;
+
+      overflow: hidden;
+    }
+
+    .preview-panel::before {
+      content: "MANIRA";
+
+      position: absolute;
+      right: -45px;
+      bottom: 15px;
+
+      font-family: "Playfair Display", serif;
+      font-size: 94px;
+      letter-spacing: 10px;
+
+      color: rgba(255, 255, 255, 0.026);
+
+      transform: rotate(-90deg) translateX(80px);
+
+      pointer-events: none;
+    }
+
+    .preview-top {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .preview-top span {
+      font-size: 8px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+    }
+
+    .preview-top small {
+      color: #928b82;
+      font-size: 8px;
+      letter-spacing: 1.5px;
+    }
+
+    .bracelet-stage {
+      position: relative;
+      z-index: 2;
+
+      min-height: 410px;
+
+      display: grid;
+      place-items: center;
+    }
+
+    .bracelet-preview {
+      position: relative;
+
+      width: 330px;
+      height: 330px;
+
+      max-width: 84vw;
+      max-height: 84vw;
+    }
+
+    .bracelet-shadow {
+      position: absolute;
+      left: 50%;
+      top: 54%;
+
+      width: 220px;
+      height: 75px;
+
+      transform: translate(-50%, -50%);
+
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, 0.38);
+      filter: blur(24px);
+    }
+
+    .bead {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      width: 29px;
+      height: 29px;
+
+      margin-left: -14.5px;
+      margin-top: -14.5px;
+
+      border-radius: 50%;
+
+      background: var(--bead-color);
+
+      box-shadow:
+        inset -7px -8px 12px rgba(0, 0, 0, 0.34),
+        inset 6px 6px 11px rgba(255, 255, 255, 0.27),
+        0 5px 8px rgba(0, 0, 0, 0.32);
+
+      transform:
+        rotate(var(--angle))
+        translateY(-126px)
+        rotate(calc(-1 * var(--angle)));
+
+      transition:
+        background .4s ease,
+        transform .55s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .bracelet-preview.size-s .bead {
+      transform:
+        rotate(var(--angle))
+        translateY(-112px)
+        rotate(calc(-1 * var(--angle)));
+    }
+
+    .bracelet-preview.size-l .bead {
+      transform:
+        rotate(var(--angle))
+        translateY(-137px)
+        rotate(calc(-1 * var(--angle)));
+    }
+
+    .bracelet-preview.size-xl .bead {
+      transform:
+        rotate(var(--angle))
+        translateY(-145px)
+        rotate(calc(-1 * var(--angle)));
+    }
+
+    .center-charm {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      width: 54px;
+      height: 54px;
+
+      transform: translate(-50%, -50%);
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle at 35% 28%, #fff2c8, #a98649 50%, #5a421e);
+
+      color: #171511;
+
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+
+      box-shadow: 0 8px 25px rgba(0,0,0,.35);
+
+      transition:
+        background .35s ease,
+        opacity .35s ease,
+        transform .35s ease;
+    }
+
+    .center-charm.silver {
+      background:
+        radial-gradient(circle at 35% 28%, #ffffff, #aeb4b8 52%, #555d62);
+    }
+
+    .center-charm.none {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.6);
+    }
+
+    .preview-copy {
+      position: relative;
+      z-index: 2;
+
+      text-align: center;
+    }
+
+    .preview-copy .mini {
+      color: #a18f70;
+
+      font-size: 8px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+    }
+
+    .preview-copy h3 {
+      margin-top: 10px;
+
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .preview-copy p {
+      max-width: 380px;
+
+      margin: 10px auto 0;
+
+      color: #a59e95;
+
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .preview-specs {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      margin-top: 24px;
+
+      border-top: 1px solid rgba(255,255,255,.12);
+      border-left: 1px solid rgba(255,255,255,.12);
+    }
+
+    .preview-spec {
+      min-height: 73px;
+
+      padding: 14px;
+
+      border-right: 1px solid rgba(255,255,255,.12);
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .preview-spec span {
+      display: block;
+
+      color: #7e776e;
+
+      font-size: 7px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .preview-spec strong {
+      display: block;
+
+      margin-top: 7px;
+
+      color: #e7dfd2;
+
+      font-family: "Playfair Display", serif;
+      font-size: 13px;
+      font-weight: 400;
+
+      line-height: 1.35;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================== */
+
+    footer {
+      padding: 33px 0;
+
+      background: #171511;
+      color: #736d65;
+
+      border-top: 1px solid #34312c;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 1100px) {
+      .nav-group {
+        gap: 18px;
+      }
+
+      .nav-group a {
+        font-size: 8px;
+        letter-spacing: 1.4px;
+      }
+
+      .builder-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-panel {
+        position: relative;
+        top: auto;
+
+        min-height: 610px;
+
+        order: -1;
+      }
+
+      .progress-wrap {
+        order: -2;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+
+        gap: 34px;
+      }
+
+      .stone-choice-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      .nav-shell {
+        display: none;
+      }
+
+      .mobile-nav {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 13px 18px;
+
+        background: rgba(243, 240, 233, 0.92);
+        border: 1px solid rgba(23, 21, 17, 0.09);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .mobile-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 19px;
+        letter-spacing: 6px;
+      }
+
+      .mobile-menu-button {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 5px;
+
+        border: 1px solid rgba(23, 21, 17, 0.2);
+        border-radius: 50%;
+
+        background: transparent;
+      }
+
+      .mobile-menu-button span {
+        width: 15px;
+        height: 1px;
+
+        background: var(--ink);
+      }
+
+      .progress {
+        overflow-x: auto;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      .page-hero {
+        padding: 135px 0 64px;
+      }
+
+      .hero-title {
+        font-size: 62px;
+      }
+
+      .builder-section {
+        padding: 58px 0 80px;
+      }
+
+      .preview-panel {
+        min-height: 560px;
+        padding: 20px;
+      }
+
+      .bracelet-stage {
+        min-height: 350px;
+      }
+
+      .bracelet-preview {
+        width: 285px;
+        height: 285px;
+      }
+
+      .bead {
+        width: 25px;
+        height: 25px;
+
+        margin-left: -12.5px;
+        margin-top: -12.5px;
+
+        transform:
+          rotate(var(--angle))
+          translateY(-108px)
+          rotate(calc(-1 * var(--angle)));
+      }
+
+      .bracelet-preview.size-s .bead {
+        transform:
+          rotate(var(--angle))
+          translateY(-96px)
+          rotate(calc(-1 * var(--angle)));
+      }
+
+      .bracelet-preview.size-l .bead {
+        transform:
+          rotate(var(--angle))
+          translateY(-116px)
+          rotate(calc(-1 * var(--angle)));
+      }
+
+      .bracelet-preview.size-xl .bead {
+        transform:
+          rotate(var(--angle))
+          translateY(-122px)
+          rotate(calc(-1 * var(--angle)));
+      }
+
+      .choice {
+        grid-template-columns: 30px 1fr auto;
+        padding: 16px;
+      }
+
+      .stone-choice-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .size-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .element-options {
+        grid-template-columns: 1fr;
+      }
+
+      .review-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .step-actions {
+        align-items: stretch;
+      }
+
+      .back-btn,
+      .next-btn {
+        flex: 1;
+        padding: 0 15px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .stone-choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-step {
+        min-height: 74px;
+      }
+
+      .preview-specs {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+
+  <nav class="navbar">
+
+    <div class="nav-shell">
+
+      <div class="nav-group nav-group-left">
+        <a href="index.html#home">HOME</a>
+        <a href="stones.html">STONES</a>
+        <a href="custom.html" class="active">CUSTOM BRACELET</a>
+      </div>
+
+      <a href="index.html#home" class="nav-monogram">M</a>
+
+      <div class="nav-group nav-group-right">
+        <a href="index.html#ready">READY-MADE</a>
+        <a href="index.html#about">ABOUT</a>
+        <a href="index.html#contact">CONTACT</a>
+      </div>
+
+    </div>
+
+    <div class="mobile-nav">
+
+      <a class="mobile-logo" href="index.html#home">
+        MANIRA
+      </a>
+
+      <button
+        class="mobile-menu-button"
+        id="menuOpen"
+        aria-label="Open menu"
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+
+    <button
+      class="mobile-close"
+      id="menuClose"
+      aria-label="Close menu"
+    >
+      ×
+    </button>
+
+    <a href="index.html#home">HOME</a>
+    <a href="stones.html">STONES</a>
+    <a href="custom.html">CUSTOM BRACELET</a>
+    <a href="index.html#ready">READY-MADE</a>
+    <a href="index.html#about">ABOUT</a>
+    <a href="index.html#contact">CONTACT</a>
+
+  </div>
+
+  <!-- =========================================================
+       HERO
+  ========================================================== -->
+
+  <header class="page-hero">
+
+    <div class="container">
+
+      <div class="breadcrumb">
+        <a href="index.html#home">HOME</a>
+        <span>—</span>
+        <span>CUSTOM BRACELET</span>
+      </div>
+
+      <div class="hero-grid">
+
+        <div>
+          <span class="eyebrow">
+            CREATED AROUND YOUR INTENTION
+          </span>
+
+          <h1 class="hero-title">
+            Create your own<br>
+            <em>MANIRA.</em>
+          </h1>
+        </div>
+
+        <div>
+          <p class="hero-copy">
+            กำไลแต่ละเส้นเริ่มจาก “สิ่งที่คุณต้องการในช่วงเวลานี้”
+            เลือกความหมาย หิน ขนาด และองค์ประกอบที่เข้ากับคุณ
+            แล้วดูตัวอย่างกำไลของคุณเปลี่ยนไปแบบ Live Preview
+            ก่อนสรุปดีไซน์ในขั้นตอนสุดท้าย
+          </p>
+
+          <div class="hero-note">
+            5 STEPS · PERSONALIZED FOR YOU
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- =========================================================
+       BUILDER
+  ========================================================== -->
+
+  <main class="builder-section">
+
+    <div class="container builder-shell">
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+
+        <div class="progress" id="progress">
+
+          <button class="progress-step active" data-step="1">
+            <span class="num">01</span>
+            <span class="label">Meaning</span>
+          </button>
+
+          <button class="progress-step" data-step="2">
+            <span class="num">02</span>
+            <span class="label">Stones</span>
+          </button>
+
+          <button class="progress-step" data-step="3">
+            <span class="num">03</span>
+            <span class="label">Size</span>
+          </button>
+
+          <button class="progress-step" data-step="4">
+            <span class="num">04</span>
+            <span class="label">Elements</span>
+          </button>
+
+          <button class="progress-step" data-step="5">
+            <span class="num">05</span>
+            <span class="label">Review</span>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- =====================================================
+           EDITOR
+      ====================================================== -->
+
+      <section class="editor-panel">
+
+        <!-- STEP 1 -->
+        <div class="step active" data-step-panel="1">
+
+          <div class="step-kicker">
+            STEP 01 — YOUR INTENTION
+          </div>
+
+          <h2 class="step-title">
+            What would you like<br>
+            to invite into your life?
+          </h2>
+
+          <p class="step-description">
+            เลือกความหมายหลักของกำไล MANIRA เส้นนี้
+            ขั้นตอนถัดไปเราจะแนะนำหินที่สอดคล้องกับสิ่งที่คุณเลือก
+          </p>
+
+          <div class="choice-list" id="intentionChoices">
+
+            <button class="choice" data-value="Love & Harmony">
+              <span class="choice-index">01</span>
+
+              <span class="choice-main">
+                <strong>Love & Harmony</strong>
+                <small>ความรัก • เสน่ห์ • ความสัมพันธ์ • การเห็นคุณค่าในตัวเอง</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+            <button class="choice" data-value="Confidence & Courage">
+              <span class="choice-index">02</span>
+
+              <span class="choice-main">
+                <strong>Confidence & Courage</strong>
+                <small>ความมั่นใจ • ความกล้า • พลังใจ • การตัดสินใจ</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+            <button class="choice" data-value="Career & Success">
+              <span class="choice-index">03</span>
+
+              <span class="choice-main">
+                <strong>Career & Success</strong>
+                <small>การงาน • เป้าหมาย • ความสำเร็จ • แรงผลักดัน</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+            <button class="choice" data-value="Wealth & Opportunity">
+              <span class="choice-index">04</span>
+
+              <span class="choice-main">
+                <strong>Wealth & Opportunity</strong>
+                <small>การเงิน • โชคลาภ • โอกาส • ความอุดมสมบูรณ์</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+            <button class="choice" data-value="Protection & Grounding">
+              <span class="choice-index">05</span>
+
+              <span class="choice-main">
+                <strong>Protection & Grounding</strong>
+                <small>การปกป้อง • ตั้งหลัก • ความมั่นคง • ปล่อยพลังลบ</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+            <button class="choice" data-value="Calm & Clarity">
+              <span class="choice-index">06</span>
+
+              <span class="choice-main">
+                <strong>Calm & Clarity</strong>
+                <small>ความสงบ • สมาธิ • ความชัดเจน • สมดุลทางอารมณ์</small>
+              </span>
+
+              <span class="choice-mark">✓</span>
+            </button>
+
+          </div>
+
+          <div class="validation-message" id="validation1"></div>
+
+          <div class="step-actions">
+            <button class="back-btn hidden">← BACK</button>
+            <button class="next-btn" data-next="2">NEXT · CHOOSE STONES →</button>
+          </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step-panel="2">
+
+          <div class="step-kicker">
+            STEP 02 — CHOOSE YOUR STONES
+          </div>
+
+          <h2 class="step-title">
+            Build your<br>
+            stone combination.
+          </h2>
+
+          <p class="step-description">
+            เลือกได้สูงสุด 3 ชนิด เราจะนำสีของหินที่เลือกไปสร้าง Live Preview
+            ให้ทันที หินที่มีคำว่า Recommended จะอิงจากความหมายที่คุณเลือกใน Step 01
+          </p>
+
+          <div class="stone-toolbar">
+            <p>เลือกอย่างน้อย 1 ชนิด</p>
+            <div class="selected-count" id="stoneCount">
+              0 / 3 SELECTED
+            </div>
+          </div>
+
+          <div class="stone-choice-grid" id="stoneChoices"></div>
+
+          <div class="validation-message" id="validation2"></div>
+
+          <div class="step-actions">
+            <button class="back-btn" data-back="1">← BACK</button>
+            <button class="next-btn" data-next="3">NEXT · CHOOSE SIZE →</button>
+          </div>
+
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step-panel="3">
+
+          <div class="step-kicker">
+            STEP 03 — WRIST SIZE
+          </div>
+
+          <h2 class="step-title">
+            Made to sit<br>
+            comfortably on you.
+          </h2>
+
+          <p class="step-description">
+            วัดรอบข้อมือตรงตำแหน่งที่ต้องการใส่กำไลแบบพอดีตัว
+            แล้วเลือกช่วงขนาดที่ใกล้ที่สุด
+          </p>
+
+          <div class="size-grid" id="sizeChoices">
+
+            <button class="size-option" data-size="S" data-label="14–15 cm">
+              <span class="size-letter">S</span>
+              <strong>14–15 CM</strong>
+              <small>สำหรับข้อมือเล็ก ชอบใส่ค่อนข้างพอดี</small>
+            </button>
+
+            <button class="size-option" data-size="M" data-label="15–16 cm">
+              <span class="size-letter">M</span>
+              <strong>15–16 CM</strong>
+              <small>ขนาดมาตรฐาน เหมาะกับข้อมือส่วนใหญ่</small>
+            </button>
+
+            <button class="size-option" data-size="L" data-label="16–17 cm">
+              <span class="size-letter">L</span>
+              <strong>16–17 CM</strong>
+              <small>สำหรับข้อมือกลางถึงใหญ่ หรือชอบใส่หลวมเล็กน้อย</small>
+            </button>
+
+            <button class="size-option" data-size="XL" data-label="17–18 cm">
+              <span class="size-letter">XL</span>
+              <strong>17–18 CM</strong>
+              <small>สำหรับข้อมือใหญ่ หรือชอบพื้นที่ขยับมากขึ้น</small>
+            </button>
+
+          </div>
+
+          <div class="custom-size">
+            <label for="customWrist">
+              OR ENTER YOUR EXACT WRIST SIZE
+            </label>
+
+            <div class="custom-size-row">
+              <input
+                type="number"
+                id="customWrist"
+                min="12"
+                max="24"
+                step="0.1"
+                placeholder="15.5"
+              >
+              <span>CM — ใส่ตัวเลขแล้วระบบจะใช้ค่านี้แทนไซซ์มาตรฐาน</span>
+            </div>
+          </div>
+
+          <div class="validation-message" id="validation3"></div>
+
+          <div class="step-actions">
+            <button class="back-btn" data-back="2">← BACK</button>
+            <button class="next-btn" data-next="4">NEXT · ELEMENTS →</button>
+          </div>
+
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" data-step-panel="4">
+
+          <div class="step-kicker">
+            STEP 04 — FINISHING ELEMENTS
+          </div>
+
+          <h2 class="step-title">
+            Choose the details<br>
+            that make it yours.
+          </h2>
+
+          <p class="step-description">
+            เลือกโทนโลหะและวิธีจัดวางหิน เพื่อให้ MANIRA เส้นนี้มีบุคลิกที่ตรงกับคุณมากขึ้น
+          </p>
+
+          <div class="element-group">
+
+            <div class="element-label">
+              01 · METAL FINISH
+            </div>
+
+            <div class="element-options" id="metalChoices">
+
+              <button class="element-option" data-metal="MANIRA Gold">
+                <span class="element-symbol">M</span>
+                <strong>MANIRA Gold</strong>
+                <small>โทนอุ่น เรียบหรู และให้ความรู้สึกคลาสสิก</small>
+              </button>
+
+              <button class="element-option" data-metal="Silver">
+                <span class="element-symbol">M</span>
+                <strong>Silver</strong>
+                <small>โทนเย็น สะอาด และโมเดิร์น</small>
+              </button>
+
+              <button class="element-option" data-metal="No Metal">
+                <span class="element-symbol">—</span>
+                <strong>No Metal</strong>
+                <small>ปล่อยให้หินเป็นจุดเด่นทั้งหมด</small>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="element-group">
+
+            <div class="element-label">
+              02 · STONE ARRANGEMENT
+            </div>
+
+            <div class="element-options" id="styleChoices">
+
+              <button class="element-option" data-style="Balance">
+                <span class="element-symbol">○</span>
+                <strong>Balance</strong>
+                <small>จัดวางสมมาตร ดูสงบและเรียบร้อย</small>
+              </button>
+
+              <button class="element-option" data-style="Flow">
+                <span class="element-symbol">∿</span>
+                <strong>Flow</strong>
+                <small>สลับสีอย่างเป็นธรรมชาติ ดูมีจังหวะ</small>
+              </button>
+
+              <button class="element-option" data-style="Focus">
+                <span class="element-symbol">•</span>
+                <strong>Focus</strong>
+                <small>เน้นหินหลัก 1 ชนิดเป็นจุดศูนย์กลาง</small>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="validation-message" id="validation4"></div>
+
+          <div class="step-actions">
+            <button class="back-btn" data-back="3">← BACK</button>
+            <button class="next-btn" data-next="5">NEXT · REVIEW →</button>
+          </div>
+
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step" data-step-panel="5">
+
+          <div class="step-kicker">
+            STEP 05 — REVIEW YOUR MANIRA
+          </div>
+
+          <h2 class="step-title">
+            Your intention,<br>
+            translated into a bracelet.
+          </h2>
+
+          <p class="step-description">
+            ตรวจสอบสเปกก่อนส่งรายละเอียดให้ MANIRA
+            ตอนนี้เป็น Prototype สำหรับเว็บไซต์ จึงยังไม่ตัดเงินจริง
+          </p>
+
+          <dl class="review-card">
+
+            <div class="review-row">
+              <dt>Intention</dt>
+              <dd id="reviewIntention">—</dd>
+            </div>
+
+            <div class="review-row">
+              <dt>Stones</dt>
+              <dd id="reviewStones">—</dd>
+            </div>
+
+            <div class="review-row">
+              <dt>Wrist Size</dt>
+              <dd id="reviewSize">—</dd>
+            </div>
+
+            <div class="review-row">
+              <dt>Metal</dt>
+              <dd id="reviewMetal">—</dd>
+            </div>
+
+            <div class="review-row">
+              <dt>Arrangement</dt>
+              <dd id="reviewStyle">—</dd>
+            </div>
+
+          </dl>
+
+          <p class="review-note">
+            * สีและรูปแบบใน Live Preview เป็นภาพจำลองเพื่อช่วยตัดสินใจ
+            งานจริงสามารถปรับตำแหน่งเม็ดหิน รายละเอียด และจำนวนเม็ดให้เหมาะกับข้อมือของคุณ
+          </p>
+
+          <div class="final-actions">
+
+            <button class="final-btn" id="copySummary">
+              COPY DESIGN SUMMARY →
+            </button>
+
+            <a class="final-btn secondary" href="index.html#contact">
+              CONTACT MANIRA
+            </a>
+
+            <button class="final-btn secondary" id="startOver">
+              START OVER
+            </button>
+
+          </div>
+
+          <div class="validation-message" id="copyStatus"></div>
+
+          <div class="step-actions">
+            <button class="back-btn" data-back="4">← BACK</button>
+            <span></span>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           LIVE PREVIEW
+      ====================================================== -->
+
+      <aside class="preview-panel">
+
+        <div class="preview-top">
+          <span>LIVE PREVIEW</span>
+          <small>YOUR MANIRA · 001</small>
+        </div>
+
+        <div class="bracelet-stage">
+
+          <div class="bracelet-preview size-m" id="braceletPreview">
+
+            <div class="bracelet-shadow"></div>
+
+            <div id="beadContainer"></div>
+
+            <div class="center-charm" id="centerCharm">
+              M
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="preview-copy">
+
+          <span class="mini">
+            CUSTOM BRACELET SPEC
+          </span>
+
+          <h3 id="previewTitle">
+            Your MANIRA
+          </h3>
+
+          <p id="previewText">
+            เริ่มจากเลือกความหมายที่คุณต้องการ แล้ว MANIRA ของคุณจะค่อย ๆ เปลี่ยนไปตามตัวเลือก
+          </p>
+
+        </div>
+
+        <div class="preview-specs">
+
+          <div class="preview-spec">
+            <span>INTENTION</span>
+            <strong id="previewIntention">Not selected</strong>
+          </div>
+
+          <div class="preview-spec">
+            <span>STONES</span>
+            <strong id="previewStones">Not selected</strong>
+          </div>
+
+          <div class="preview-spec">
+            <span>SIZE</span>
+            <strong id="previewSize">Not selected</strong>
+          </div>
+
+          <div class="preview-spec">
+            <span>FINISH</span>
+            <strong id="previewFinish">Not selected</strong>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer>
+
+    <div class="container footer-inner">
+      <span>© 2026 MANIRA</span>
+      <span>STONES WITH MEANING</span>
+      <span>BANGKOK, THAILAND</span>
+    </div>
+
+  </footer>
+
+  <script>
+    /* =========================================================
+       DATA
+    ========================================================== */
+
+    const stoneData = [
+      {
+        id: "rose-quartz",
+        name: "Rose Quartz",
+        meaning: "Love · Compassion",
+        color: "#d7aeb3"
+      },
+      {
+        id: "tiger-eye",
+        name: "Tiger Eye",
+        meaning: "Courage · Wealth",
+        color: "#a66e36"
+      },
+      {
+        id: "amethyst",
+        name: "Amethyst",
+        meaning: "Calm · Intuition",
+        color: "#775796"
+      },
+      {
+        id: "citrine",
+        name: "Citrine",
+        meaning: "Success · Abundance",
+        color: "#d9a742"
+      },
+      {
+        id: "moonstone",
+        name: "Moonstone",
+        meaning: "Balance · New Beginnings",
+        color: "#d9ddda"
+      },
+      {
+        id: "black-tourmaline",
+        name: "Black Tourmaline",
+        meaning: "Protection · Grounding",
+        color: "#262626"
+      },
+      {
+        id: "jade",
+        name: "Jade",
+        meaning: "Luck · Harmony",
+        color: "#71845b"
+      },
+      {
+        id: "green-aventurine",
+        name: "Green Aventurine",
+        meaning: "Opportunity · Growth",
+        color: "#548b78"
+      },
+      {
+        id: "lapis-lazuli",
+        name: "Lapis Lazuli",
+        meaning: "Truth · Expression",
+        color: "#39557f"
+      },
+      {
+        id: "aquamarine",
+        name: "Aquamarine",
+        meaning: "Calm · Communication",
+        color: "#63a9b8"
+      },
+      {
+        id: "carnelian",
+        name: "Carnelian",
+        meaning: "Motivation · Vitality",
+        color: "#a75348"
+      },
+      {
+        id: "rhodonite",
+        name: "Rhodonite",
+        meaning: "Healing · Compassion",
+        color: "#9a6172"
+      },
+      {
+        id: "peridot",
+        name: "Peridot",
+        meaning: "Renewal · Lightness",
+        color: "#8da263"
+      },
+      {
+        id: "smoky-quartz",
+        name: "Smoky Quartz",
+        meaning: "Release · Focus",
+        color: "#837667"
+      },
+      {
+        id: "labradorite",
+        name: "Labradorite",
+        meaning: "Transformation · Strength",
+        color: "#687487"
+      },
+      {
+        id: "clear-quartz",
+        name: "Clear Quartz",
+        meaning: "Clarity · Intention",
+        color: "#dedbd2"
+      },
+      {
+        id: "obsidian",
+        name: "Obsidian",
+        meaning: "Protection · Truth",
+        color: "#182238"
+      },
+      {
+        id: "fluorite",
+        name: "Fluorite",
+        meaning: "Focus · Mental Clarity",
+        color: "#846b87"
+      }
+    ];
+
+    const recommendations = {
+      "Love & Harmony": ["rose-quartz", "rhodonite", "moonstone"],
+      "Confidence & Courage": ["tiger-eye", "carnelian", "lapis-lazuli"],
+      "Career & Success": ["citrine", "tiger-eye", "clear-quartz"],
+      "Wealth & Opportunity": ["citrine", "jade", "green-aventurine"],
+      "Protection & Grounding": ["black-tourmaline", "obsidian", "smoky-quartz"],
+      "Calm & Clarity": ["amethyst", "aquamarine", "fluorite"]
+    };
+
+    const state = {
+      step: 1,
+      maxStep: 1,
+      intention: "",
+      stones: [],
+      size: "",
+      sizeLabel: "",
+      customWrist: "",
+      metal: "",
+      style: ""
+    };
+
+    /* =========================================================
+       DOM
+    ========================================================== */
+
+    const progressSteps = [...document.querySelectorAll(".progress-step")];
+    const stepPanels = [...document.querySelectorAll(".step")];
+
+    const preview = document.getElementById("braceletPreview");
+    const beadContainer = document.getElementById("beadContainer");
+    const centerCharm = document.getElementById("centerCharm");
+
+    const previewTitle = document.getElementById("previewTitle");
+    const previewText = document.getElementById("previewText");
+    const previewIntention = document.getElementById("previewIntention");
+    const previewStones = document.getElementById("previewStones");
+    const previewSize = document.getElementById("previewSize");
+    const previewFinish = document.getElementById("previewFinish");
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================== */
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuOpen = document.getElementById("menuOpen");
+    const menuClose = document.getElementById("menuClose");
+
+    menuOpen.addEventListener("click", () => {
+      mobileMenu.classList.add("active");
+      document.body.classList.add("menu-open");
+    });
+
+    menuClose.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+      document.body.classList.remove("menu-open");
+    });
+
+    document
+      .querySelectorAll(".mobile-menu a")
+      .forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+          document.body.classList.remove("menu-open");
+        });
+      });
+
+    /* =========================================================
+       RENDER STONES
+    ========================================================== */
+
+    function renderStoneChoices() {
+      const container = document.getElementById("stoneChoices");
+      const recommended = recommendations[state.intention] || [];
+
+      container.innerHTML = stoneData.map((stone) => {
+        const isSelected = state.stones.includes(stone.id);
+        const isRecommended = recommended.includes(stone.id);
+
+        return `
+          <button
+            class="stone-choice
+              ${isSelected ? "selected" : ""}
+              ${isRecommended ? "recommended" : ""}"
+            data-stone="${stone.id}"
+            style="--stone:${stone.color}"
+          >
+            <span class="stone-swatch"></span>
+            <strong>${stone.name}</strong>
+            <small>${stone.meaning}</small>
+          </button>
+        `;
+      }).join("");
+
+      document
+        .querySelectorAll(".stone-choice")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            const id = button.dataset.stone;
+
+            if (state.stones.includes(id)) {
+              state.stones = state.stones.filter((item) => item !== id);
+            } else {
+              if (state.stones.length >= 3) {
+                document.getElementById("validation2").textContent =
+                  "เลือกหินได้สูงสุด 3 ชนิด";
+                return;
+              }
+
+              state.stones.push(id);
+            }
+
+            document.getElementById("validation2").textContent = "";
+
+            renderStoneChoices();
+            updatePreview();
+          });
+        });
+
+      document.getElementById("stoneCount").textContent =
+        `${state.stones.length} / 3 SELECTED`;
+    }
+
+    /* =========================================================
+       INTENTION
+    ========================================================== */
+
+    document
+      .querySelectorAll("#intentionChoices .choice")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          state.intention = button.dataset.value;
+
+          document
+            .querySelectorAll("#intentionChoices .choice")
+            .forEach((item) => item.classList.remove("selected"));
+
+          button.classList.add("selected");
+
+          document.getElementById("validation1").textContent = "";
+
+          renderStoneChoices();
+          updatePreview();
+        });
+      });
+
+    /* =========================================================
+       SIZE
+    ========================================================== */
+
+    document
+      .querySelectorAll(".size-option")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          state.size = button.dataset.size;
+          state.sizeLabel = button.dataset.label;
+          state.customWrist = "";
+
+          document.getElementById("customWrist").value = "";
+
+          document
+            .querySelectorAll(".size-option")
+            .forEach((item) => item.classList.remove("selected"));
+
+          button.classList.add("selected");
+
+          document.getElementById("validation3").textContent = "";
+
+          updatePreview();
+        });
+      });
+
+    document
+      .getElementById("customWrist")
+      .addEventListener("input", (event) => {
+        const value = event.target.value;
+
+        if (!value) {
+          state.customWrist = "";
+          updatePreview();
+          return;
+        }
+
+        state.customWrist = value;
+        state.size = "CUSTOM";
+        state.sizeLabel = `${value} cm`;
+
+        document
+          .querySelectorAll(".size-option")
+          .forEach((item) => item.classList.remove("selected"));
+
+        document.getElementById("validation3").textContent = "";
+
+        updatePreview();
+      });
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================== */
+
+    document
+      .querySelectorAll("[data-metal]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          state.metal = button.dataset.metal;
+
+          document
+            .querySelectorAll("[data-metal]")
+            .forEach((item) => item.classList.remove("selected"));
+
+          button.classList.add("selected");
+
+          document.getElementById("validation4").textContent = "";
+
+          updatePreview();
+        });
+      });
+
+    document
+      .querySelectorAll("[data-style]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          state.style = button.dataset.style;
+
+          document
+            .querySelectorAll("[data-style]")
+            .forEach((item) => item.classList.remove("selected"));
+
+          button.classList.add("selected");
+
+          document.getElementById("validation4").textContent = "";
+
+          updatePreview();
+        });
+      });
+
+    /* =========================================================
+       PROGRESS + STEPS
+    ========================================================== */
+
+    function showStep(stepNumber) {
+      state.step = stepNumber;
+      state.maxStep = Math.max(state.maxStep, stepNumber);
+
+      stepPanels.forEach((panel) => {
+        panel.classList.toggle(
+          "active",
+          Number(panel.dataset.stepPanel) === stepNumber
+        );
+      });
+
+      progressSteps.forEach((item) => {
+        const itemStep = Number(item.dataset.step);
+
+        item.classList.toggle("active", itemStep === stepNumber);
+        item.classList.toggle("done", itemStep < stepNumber);
+
+        item.disabled = itemStep > state.maxStep;
+      });
+
+      if (stepNumber === 5) {
+        updateReview();
+      }
+
+      window.scrollTo({
+        top: document.querySelector(".progress-wrap").offsetTop + 570,
+        behavior: "smooth"
+      });
+    }
+
+    progressSteps.forEach((button) => {
+      button.addEventListener("click", () => {
+        const step = Number(button.dataset.step);
+
+        if (step <= state.maxStep) {
+          showStep(step);
+        }
+      });
+    });
+
+    document
+      .querySelectorAll("[data-next]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextStep = Number(button.dataset.next);
+
+          if (!validateStep(state.step)) {
+            return;
+          }
+
+          showStep(nextStep);
+        });
+      });
+
+    document
+      .querySelectorAll("[data-back]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          showStep(Number(button.dataset.back));
+        });
+      });
+
+    function validateStep(step) {
+      if (step === 1 && !state.intention) {
+        document.getElementById("validation1").textContent =
+          "กรุณาเลือกความหมายของกำไลก่อน";
+        return false;
+      }
+
+      if (step === 2 && state.stones.length === 0) {
+        document.getElementById("validation2").textContent =
+          "กรุณาเลือกหินอย่างน้อย 1 ชนิด";
+        return false;
+      }
+
+      if (step === 3 && !state.size) {
+        document.getElementById("validation3").textContent =
+          "กรุณาเลือกขนาดหรือระบุรอบข้อมือ";
+        return false;
+      }
+
+      if (step === 4 && (!state.metal || !state.style)) {
+        document.getElementById("validation4").textContent =
+          "กรุณาเลือกทั้ง Metal Finish และ Stone Arrangement";
+        return false;
+      }
+
+      return true;
+    }
+
+    /* =========================================================
+       BRACELET PREVIEW
+    ========================================================== */
+
+    function getSelectedStones() {
+      return state.stones
+        .map((id) => stoneData.find((stone) => stone.id === id))
+        .filter(Boolean);
+    }
+
+    function createBeads() {
+      const selectedStones = getSelectedStones();
+
+      const fallback = [
+        { color: "#c8bda9" },
+        { color: "#9a8c78" },
+        { color: "#d8d0c5" }
+      ];
+
+      const palette = selectedStones.length ? selectedStones : fallback;
+
+      const beadCount =
+        state.size === "S" ? 20 :
+        state.size === "L" ? 24 :
+        state.size === "XL" ? 26 :
+        22;
+
+      beadContainer.innerHTML = "";
+
+      for (let i = 0; i < beadCount; i++) {
+        const bead = document.createElement("span");
+        bead.className = "bead";
+
+        const angle = (360 / beadCount) * i;
+
+        let stone;
+
+        if (state.style === "Focus" && palette.length > 1) {
+          stone = i % 5 === 0 ? palette[(i / 5) % palette.length | 0] : palette[0];
+        } else if (state.style === "Balance" && palette.length > 1) {
+          const mirroredIndex =
+            Math.min(i, beadCount - 1 - i) % palette.length;
+          stone = palette[mirroredIndex];
+        } else {
+          stone = palette[i % palette.length];
+        }
+
+        bead.style.setProperty("--angle", `${angle}deg`);
+        bead.style.setProperty("--bead-color", stone.color);
+
+        beadContainer.appendChild(bead);
+      }
+    }
+
+    function updatePreview() {
+      createBeads();
+
+      preview.classList.remove("size-s", "size-m", "size-l", "size-xl");
+
+      if (state.size === "S") {
+        preview.classList.add("size-s");
+      } else if (state.size === "L") {
+        preview.classList.add("size-l");
+      } else if (state.size === "XL") {
+        preview.classList.add("size-xl");
+      } else {
+        preview.classList.add("size-m");
+      }
+
+      centerCharm.classList.remove("silver", "none");
+
+      if (state.metal === "Silver") {
+        centerCharm.classList.add("silver");
+      }
+
+      if (state.metal === "No Metal") {
+        centerCharm.classList.add("none");
+      }
+
+      const selectedStones = getSelectedStones();
+      const stoneNames = selectedStones.map((stone) => stone.name);
+
+      previewIntention.textContent =
+        state.intention || "Not selected";
+
+      previewStones.textContent =
+        stoneNames.length
+          ? stoneNames.join(" · ")
+          : "Not selected";
+
+      previewSize.textContent =
+        state.size
+          ? `${state.size}${state.sizeLabel ? " · " + state.sizeLabel : ""}`
+          : "Not selected";
+
+      previewFinish.textContent =
+        state.metal
+          ? `${state.metal}${state.style ? " · " + state.style : ""}`
+          : "Not selected";
+
+      previewTitle.textContent =
+        state.intention
+          ? state.intention.split(" & ")[0] + " MANIRA"
+          : "Your MANIRA";
+
+      previewText.textContent =
+        stoneNames.length
+          ? `กำไลที่ประกอบด้วย ${stoneNames.join(", ")} และจะถูกจัดสัดส่วนให้เหมาะกับขนาดข้อมือของคุณ`
+          : "เริ่มจากเลือกความหมายที่คุณต้องการ แล้ว MANIRA ของคุณจะค่อย ๆ เปลี่ยนไปตามตัวเลือก";
+    }
+
+    /* =========================================================
+       REVIEW
+    ========================================================== */
+
+    function updateReview() {
+      const selectedStones = getSelectedStones();
+
+      document.getElementById("reviewIntention").textContent =
+        state.intention || "—";
+
+      document.getElementById("reviewStones").textContent =
+        selectedStones.length
+          ? selectedStones.map((stone) => stone.name).join(" · ")
+          : "—";
+
+      document.getElementById("reviewSize").textContent =
+        state.size
+          ? `${state.size} · ${state.sizeLabel}`
+          : "—";
+
+      document.getElementById("reviewMetal").textContent =
+        state.metal || "—";
+
+      document.getElementById("reviewStyle").textContent =
+        state.style || "—";
+    }
+
+    function designSummary() {
+      const selectedStones = getSelectedStones();
+
+      return [
+        "MANIRA CUSTOM BRACELET",
+        "------------------------",
+        `Intention: ${state.intention || "-"}`,
+        `Stones: ${
+          selectedStones.length
+            ? selectedStones.map((stone) => stone.name).join(", ")
+            : "-"
+        }`,
+        `Wrist Size: ${
+          state.size
+            ? `${state.size} (${state.sizeLabel})`
+            : "-"
+        }`,
+        `Metal Finish: ${state.metal || "-"}`,
+        `Arrangement: ${state.style || "-"}`
+      ].join("\n");
+    }
+
+    document
+      .getElementById("copySummary")
+      .addEventListener("click", async () => {
+        const status = document.getElementById("copyStatus");
+        const summary = designSummary();
+
+        try {
+          await navigator.clipboard.writeText(summary);
+
+          status.textContent =
+            "คัดลอกสรุปดีไซน์แล้ว — สามารถส่งให้ MANIRA ทาง LINE / Instagram ได้เลย";
+        } catch (error) {
+          status.textContent =
+            "เบราว์เซอร์ไม่อนุญาตให้คัดลอกอัตโนมัติ กรุณาคัดลอกรายละเอียดจาก Review";
+        }
+      });
+
+    document
+      .getElementById("startOver")
+      .addEventListener("click", () => {
+        state.step = 1;
+        state.maxStep = 1;
+        state.intention = "";
+        state.stones = [];
+        state.size = "";
+        state.sizeLabel = "";
+        state.customWrist = "";
+        state.metal = "";
+        state.style = "";
+
+        document
+          .querySelectorAll(".selected")
+          .forEach((item) => item.classList.remove("selected"));
+
+        document.getElementById("customWrist").value = "";
+
+        document
+          .querySelectorAll(".validation-message")
+          .forEach((item) => item.textContent = "");
+
+        renderStoneChoices();
+        updatePreview();
+        showStep(1);
+      });
+
+    /* =========================================================
+       INITIAL
+    ========================================================== */
+
+    renderStoneChoices();
+    updatePreview();
+  </script>
+
+</body>
+</html>
