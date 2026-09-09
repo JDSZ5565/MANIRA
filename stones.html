@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="ค้นหาหินทั้ง 18 ชนิดของ MANIRA พร้อมความหมายและพลังที่แตกต่างกัน"
+    content="ค้นหาหินทั้ง 17 ชนิดของ MANIRA พร้อมความหมายและพลังที่แตกต่างกัน"
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,6 +382,36 @@
         linear-gradient(145deg, var(--bg1), var(--bg2) 58%, var(--bg3));
     }
 
+    .stone-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      opacity: 0;
+
+      transition:
+        opacity 0.45s ease,
+        transform 0.7s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .stone-photo.loaded {
+      opacity: 1;
+    }
+
+    .stone-card:hover .stone-photo.loaded {
+      transform: scale(1.04);
+    }
+
+    .stone-visual.has-photo::before {
+      opacity: 0;
+    }
+
     .stone-visual::before {
       content: "";
       position: absolute;
@@ -412,6 +442,7 @@
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 2;
 
       background:
         linear-gradient(
@@ -742,21 +773,21 @@
           <span class="eyebrow">THE STONE LIBRARY</span>
 
           <h1 class="page-title">
-            18 stones.<br>
-            <em>18 energies.</em>
+            17 stones.<br>
+            <em>17 energies.</em>
           </h1>
         </div>
 
         <div>
           <p class="page-intro">
-            สำรวจหินทั้ง 18 ชนิดของ MANIRA
+            สำรวจหินทั้ง 17 ชนิดของ MANIRA
             แต่ละก้อนมีบุคลิก สีสัน และความหมายที่แตกต่างกัน
             คุณไม่จำเป็นต้องเลือกจาก “ก้อนที่ดีที่สุด”
             แค่เลือกก้อนที่ตรงกับสิ่งที่คุณกำลังต้องการในตอนนี้
           </p>
 
           <div class="count-line">
-            COMPLETE COLLECTION · 18 STONES
+            COMPLETE COLLECTION · 17 STONES
           </div>
         </div>
 
@@ -779,201 +810,292 @@
 
       <div class="stone-grid">
 
-        <article class="stone-card" id="rose-quartz"
+        <article class="stone-card" id="Hematite"
           style="--bg1:#d8b7b4;--bg2:#8c6d6a;--bg3:#4d3e3c;--stone1:#f2d4d0;--stone2:#c68f91;--stone3:#8e6468;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="01"
+              alt=""
+            >
+          </div>
           <span class="stone-number">01</span>
           <div class="stone-content">
-            <h2 class="stone-name">Rose Quartz</h2>
+            <h2 class="stone-name">Hematite</h2>
             <div class="stone-meaning">LOVE • COMPASSION • SELF-WORTH</div>
-            <p class="stone-thai">เชื่อมโยงกับความรัก ความอ่อนโยน และการเห็นคุณค่าในตัวเอง</p>
+            <p class="stone-thai">ตามความเชื่อ เป็นหินแห่งการปกป้อง ความมั่นคง และความเข้มแข็ง ช่วยเสริมความมั่นใจ ลดความกังวล และสร้างความรู้สึกมั่นคงเมื่อต้องเผชิญกับอุปสรรค เหมาะสำหรับผู้ที่ต้องการเสริมพลังใจและความกล้าในการดำเนินชีวิต</p>
           </div>
         </article>
 
-        <article class="stone-card" id="tiger-eye"
+        <article class="stone-card" id="Onyx"
           style="--bg1:#c89958;--bg2:#5c3e25;--bg3:#211812;--stone1:#e2b363;--stone2:#8f5d30;--stone3:#302015;--shape:52% 48% 45% 55% / 58% 46% 54% 42%;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="02"
+              alt=""
+            >
+          </div>
           <span class="stone-number">02</span>
           <div class="stone-content">
-            <h2 class="stone-name">Tiger Eye</h2>
+            <h2 class="stone-name">Onyx</h2>
             <div class="stone-meaning">COURAGE • WEALTH • CONFIDENCE</div>
-            <p class="stone-thai">เหมาะกับช่วงเวลาที่ต้องการความกล้า การตัดสินใจ และความมั่นใจ</p>
+            <p class="stone-thai">เป็นหินแห่งอำนาจ บารมี และการปกป้อง ช่วยเสริมความเข้มแข็งทางจิตใจ ความมั่นใจ และความเด็ดเดี่ยว อีกทั้งยังนิยมใช้เป็นเครื่องรางเพื่อช่วยป้องกันพลังงานด้านลบและเสริมความมั่นคงให้แก่ผู้สวมใส่ </p>
           </div>
         </article>
 
-        <article class="stone-card" id="amethyst"
+        <article class="stone-card" id="Jades"
           style="--bg1:#79688f;--bg2:#3f3555;--bg3:#191522;--stone1:#c3a7dd;--stone2:#755695;--stone3:#412b5f;--shape:48% 52% 44% 56% / 60% 46% 54% 40%;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="03"
+              alt=""
+            >
+          </div>
           <span class="stone-number">03</span>
           <div class="stone-content">
-            <h2 class="stone-name">Amethyst</h2>
+            <h2 class="stone-name">Jades</h2>
             <div class="stone-meaning">CALM • INTUITION • PROTECTION</div>
-            <p class="stone-thai">สื่อถึงความสงบ สติ และการฟังเสียงภายในของตัวเองให้ชัดขึ้น</p>
+            <p class="stone-thai">เป็นหินมงคลที่ได้รับความนิยมอย่างมาก เชื่อว่าสื่อถึงความมั่งคั่ง ความเจริญรุ่งเรือง ความสงบ และความสมดุล อีกทั้งยังเป็นสัญลักษณ์ของโชคลาภ ความรัก ความร่มเย็น และการมีชีวิตที่เปี่ยมด้วยความสุข </p>
           </div>
         </article>
 
-        <article class="stone-card" id="citrine"
+        <article class="stone-card" id="Dlamatian Jasper"
           style="--bg1:#e1bd70;--bg2:#956b27;--bg3:#3b2a12;--stone1:#ffe0a0;--stone2:#d9a742;--stone3:#8e5f18;--shape:48% 52% 60% 40% / 44% 58% 42% 56%;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="04"
+              alt=""
+            >
+          </div>
           <span class="stone-number">04</span>
           <div class="stone-content">
-            <h2 class="stone-name">Citrine</h2>
+            <h2 class="stone-name">Dlamatian Jasper</h2>
             <div class="stone-meaning">ABUNDANCE • SUCCESS • JOY</div>
-            <p class="stone-thai">หินโทนอุ่นที่มักเชื่อมโยงกับความอุดมสมบูรณ์ ความสำเร็จ และพลังบวก</p>
+            <p class="stone-thai">">เป็นหินที่ช่วยเติมเต็มความสดใส ความสนุกสนาน และความมั่นใจ ช่วยลดความรู้สึกกลัว ความไม่มั่นคง และความคิดด้านลบ เหมาะกับผู้ที่ต้องการเพิ่มพลังบวก ความคิดสร้างสรรค์ และความกระตือรือร้นในชีวิต </p>
           </div>
         </article>
 
-        <article class="stone-card" id="moonstone"
+        <article class="stone-card" id="Berry Agate"
           style="--bg1:#e0ddd5;--bg2:#9ca3a6;--bg3:#5d6164;--stone1:#f5f3ec;--stone2:#c8cbca;--stone3:#8b9296;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="05"
+              alt=""
+            >
+          </div>
           <span class="stone-number">05</span>
           <div class="stone-content">
-            <h2 class="stone-name">Moonstone</h2>
+            <h2 class="stone-name">Berry Agate</h2>
             <div class="stone-meaning">INTUITION • NEW BEGINNINGS • BALANCE</div>
-            <p class="stone-thai">สำหรับการเริ่มต้นใหม่ การเปลี่ยนผ่าน และการกลับมาสมดุลกับตัวเอง</p>
+            <p class="stone-thai">เป็นหินที่สื่อถึงความสมดุล ความมั่นคง และพลังบวก ช่วยสร้างความรู้สึกสงบ ลดความเครียด และส่งเสริมความมั่นใจ อีกทั้งยังนิยมเชื่อมโยงกับความอุดมสมบูรณ์และความมั่งคั่ง</p>
           </div>
         </article>
 
-        <article class="stone-card" id="black-tourmaline"
+        <article class="stone-card" id="Citrine"
           style="--bg1:#444;--bg2:#1b1b1b;--bg3:#090909;--stone1:#3c3c3c;--stone2:#1a1a1a;--stone3:#050505;--shape:46% 54% 50% 50% / 55% 43% 57% 45%;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="06"
+              alt=""
+            >
+          </div>
           <span class="stone-number">06</span>
           <div class="stone-content">
-            <h2 class="stone-name">Black Tourmaline</h2>
+            <h2 class="stone-name">Citrine</h2>
             <div class="stone-meaning">PROTECTION • GROUNDING • STABILITY</div>
-            <p class="stone-thai">สื่อถึงการปกป้อง การตั้งหลัก และการรักษาพลังใจให้มั่นคง</p>
+            <p class="stone-thai">เป็นหินแห่งความสำเร็จและความมั่งคั่ง เชื่อว่าช่วยดึงดูดโชคลาภ โอกาสทางการเงิน ความรุ่งเรือง และพลังบวก อีกทั้งยังช่วยเสริมความมั่นใจ ความคิดสร้างสรรค์ และการตัดสินใจ </p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#6d745a;--bg2:#3b4432;--bg3:#1c221a;--stone1:#aab58a;--stone2:#66744e;--stone3:#344129;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="07"
+              alt=""
+            >
+          </div>
           <span class="stone-number">07</span>
           <div class="stone-content">
-            <h2 class="stone-name">Jade</h2>
+            <h2 class="stone-name">Aquamarine</h2>
             <div class="stone-meaning">LUCK • HARMONY • PROSPERITY</div>
-            <p class="stone-thai">เชื่อมโยงกับความโชคดี ความสมดุล และความราบรื่นในชีวิต</p>
+            <p class="stone-thai">เป็นหินแห่งความสงบ ความกล้าหาญ และการสื่อสาร ช่วยเสริมความมั่นใจในการเจรจาและการแสดงออก อีกทั้งมีความเชื่อมาแต่โบราณว่าเป็นหินคุ้มครองผู้เดินทาง โดยเฉพาะการเดินทางทางน้ำ และยังเป็นสัญลักษณ์ของความรักที่มั่นคง</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#537b6c;--bg2:#2e554b;--bg3:#162c27;--stone1:#8dbdad;--stone2:#4e8878;--stone3:#28564c;--shape:50% 50% 58% 42% / 49% 61% 39% 51%;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="08"
+              alt=""
+            >
+          </div>
           <span class="stone-number">08</span>
           <div class="stone-content">
-            <h2 class="stone-name">Green Aventurine</h2>
+            <h2 class="stone-name">Sunstone</h2>
             <div class="stone-meaning">OPPORTUNITY • GROWTH • OPTIMISM</div>
-            <p class="stone-thai">เหมาะกับช่วงที่เปิดรับโอกาสใหม่ การเติบโต และมุมมองเชิงบวก</p>
+            <p class="stone-thai">เป็นหินที่สื่อถึงแสงสว่าง ความสุข และพลังชีวิต เชื่อว่าช่วยเติมพลังบวก เสริมความมั่นใจ ความกระตือรือร้น และแรงบันดาลใจ เหมาะกับผู้ที่กำลังมุ่งสู่เป้าหมายใหม่ ๆ ทั้งด้านการงาน การเงิน และการใช้ชีวิต</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#3d4762;--bg2:#202941;--bg3:#101522;--stone1:#7184b1;--stone2:#3f527c;--stone3:#1c2947;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="09"
+              alt=""
+            >
+          </div>
           <span class="stone-number">09</span>
           <div class="stone-content">
-            <h2 class="stone-name">Lapis Lazuli</h2>
+            <h2 class="stone-name">Lavender Amethyst</h2>
             <div class="stone-meaning">WISDOM • TRUTH • EXPRESSION</div>
-            <p class="stone-thai">สื่อถึงการสื่อสารอย่างจริงใจ ความคิดที่ชัดเจน และภูมิปัญญาภายใน</p>
+            <p class="stone-thai">เป็นหินแห่งความสงบ ความอ่อนโยน และความสมดุลทางอารมณ์ ช่วยลดความฟุ้งซ่านและความตึงเครียด ส่งเสริมการพักผ่อนและการมีสติ อีกทั้งยังเชื่อมโยงกับความรักที่บริสุทธิ์และการเปิดใจรับพลังบวก </p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#356b7a;--bg2:#184755;--bg3:#10272f;--stone1:#63a9b8;--stone2:#2d7588;--stone3:#174658;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="10"
+              alt=""
+            >
+          </div>
           <span class="stone-number">10</span>
           <div class="stone-content">
-            <h2 class="stone-name">Aquamarine</h2>
+            <h2 class="stone-name">Mix Quartz</h2>
             <div class="stone-meaning">CALM • COURAGE • COMMUNICATION</div>
-            <p class="stone-thai">เหมาะกับคนที่ต้องการใจสงบและสื่อสารความรู้สึกได้ชัดเจนขึ้น</p>
+            <p class="stone-thai">เป็นหินแห่งโชคลาภ เมตตามหานิยมและช่วยคุ้มครองป้องกันภยันตรายต่างๆ ทำให้เกิดความแคล้วคลาดช่วยเสริมส่งวาสนาบารมี นำโชคลาภมาสู่ผู้ครอบครอง</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#854c45;--bg2:#4d2927;--bg3:#241514;--stone1:#c67a6e;--stone2:#8f463f;--stone3:#532720;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="11"
+              alt=""
+            >
+          </div>
           <span class="stone-number">11</span>
           <div class="stone-content">
-            <h2 class="stone-name">Carnelian</h2>
+            <h2 class="stone-name">Lakeblue Amazonite</h2>
             <div class="stone-meaning">MOTIVATION • CREATIVITY • VITALITY</div>
-            <p class="stone-thai">พลังโทนอุ่นสำหรับแรงผลักดัน ความสร้างสรรค์ และความกระตือรือร้น</p>
+            <p class="stone-thai">เป็นหินที่นิยมใช้เพื่อเสริมและปรับสมดุลของพลังงาน โดยหิน Quartz หลายสีมักถูกเชื่อมโยงกับโชคลาภ เมตตา เสน่ห์ ความมั่นใจ และการปกป้อง ช่วยเสริมพลังบวกและส่งเสริมสิ่งดี ๆ ให้เข้ามาในชีวิต</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#8e6673;--bg2:#573c47;--bg3:#2b1d23;--stone1:#ce93a4;--stone2:#965c71;--stone3:#593246;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="12"
+              alt=""
+            >
+          </div>
           <span class="stone-number">12</span>
           <div class="stone-content">
-            <h2 class="stone-name">Rhodonite</h2>
+            <h2 class="stone-name">Ruby Zoisite</h2>
             <div class="stone-meaning">HEALING • FORGIVENESS • COMPASSION</div>
-            <p class="stone-thai">สื่อถึงการเยียวยาความรู้สึก การให้อภัย และความเข้าใจตนเอง</p>
+            <p class="stone-thai">เป็นหินแห่งความหวัง ความสงบ และการสื่อสาร ช่วยเสริมความมั่นใจ ลดความกังวล และสร้างพลังบวก เหมาะสำหรับผู้ที่ต้องการกำลังใจในการก้าวผ่านอุปสรรค รวมถึงผู้ที่ต้องการเสริมความราบรื่นด้านการงานและการใช้ชีวิต</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#78845d;--bg2:#465337;--bg3:#222a1d;--stone1:#a6b57a;--stone2:#708351;--stone3:#41512f;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="13"
+              alt=""
+            >
+          </div>
           <span class="stone-number">13</span>
           <div class="stone-content">
-            <h2 class="stone-name">Peridot</h2>
+            <h2 class="stone-name">White Cat’s Eyes</h2>
             <div class="stone-meaning">RENEWAL • ABUNDANCE • LIGHTNESS</div>
-            <p class="stone-thai">เหมาะกับการปล่อยสิ่งเก่า เปิดใจรับสิ่งใหม่ และคืนความเบาสบายให้ตัวเอง</p>
+            <p class="stone-thai">เป็นหินที่ผสมพลังของความกระตือรือร้นและความสมดุล เชื่อว่าช่วยเพิ่มแรงบันดาลใจ ความคิดสร้างสรรค์ และพลังในการทำงาน อีกทั้งยังเชื่อมโยงกับความรัก ความสัมพันธ์ และการเติบโตไปสู่ความสำเร็จ </p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#8e8372;--bg2:#554c42;--bg3:#29231e;--stone1:#c3b6a1;--stone2:#887764;--stone3:#4d4237;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="14"
+              alt=""
+            >
+          </div>
           <span class="stone-number">14</span>
           <div class="stone-content">
-            <h2 class="stone-name">Smoky Quartz</h2>
+            <h2 class="stone-name">Pink Cat’s Eyes</h2>
             <div class="stone-meaning">GROUNDING • RELEASE • FOCUS</div>
-            <p class="stone-thai">สื่อถึงการปล่อยความหนักใจ ตั้งหลัก และกลับมาโฟกัสกับปัจจุบัน</p>
+            <p class="stone-thai">เป็นหินที่สื่อถึงความอ่อนโยน เมตตา เสน่ห์ และความรัก ช่วยส่งเสริมความมั่นใจในตนเองและความสัมพันธ์กับผู้คนรอบข้าง อีกทั้งยังนิยมใช้เป็นเครื่องรางเพื่อเสริมพลังบวกและความสง่างาม</p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#858a90;--bg2:#4b5058;--bg3:#25282d;--stone1:#c2c7cd;--stone2:#7c838e;--stone3:#474d56;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="15"
+              alt=""
+            >
+          </div>
           <span class="stone-number">15</span>
           <div class="stone-content">
-            <h2 class="stone-name">Labradorite</h2>
+            <h2 class="stone-name">Red Agate</h2>
             <div class="stone-meaning">TRANSFORMATION • INTUITION • STRENGTH</div>
-            <p class="stone-thai">สำหรับช่วงเปลี่ยนผ่าน การค้นหาทิศทางใหม่ และความเชื่อมั่นในสัญชาตญาณ</p>
+            <p class="stone-thai">เป็นหินแห่งความกล้าหาญ ความมั่นคง และความเข้มแข็ง ช่วยเสริมความมั่นใจ ลดความวิตกกังวล และสร้างสมดุลให้กับจิตใจ อีกทั้งยังนิยมเชื่อมโยงกับการปกป้อง ความโชคดี และความมั่งคั่ง </p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#d6d1c4;--bg2:#9a9385;--bg3:#5e594f;--stone1:#f5f2e8;--stone2:#d1cab9;--stone3:#958d7f;">
-          <div class="stone-visual"></div>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="16"
+              alt=""
+            >
+          </div>
           <span class="stone-number">16</span>
           <div class="stone-content">
-            <h2 class="stone-name">Clear Quartz</h2>
+            <h2 class="stone-name">Rhodochrosite</h2>
             <div class="stone-meaning">CLARITY • INTENTION • AMPLIFICATION</div>
-            <p class="stone-thai">สื่อถึงความชัดเจน การตั้งเจตนา และการกลับมาโฟกัสกับสิ่งสำคัญ</p>
-          </div>
-        </article>
-
-        <article class="stone-card"
-          style="--bg1:#243048;--bg2:#111827;--bg3:#070b12;--stone1:#475c7e;--stone2:#1f3150;--stone3:#0d1627;">
-          <div class="stone-visual"></div>
-          <span class="stone-number">17</span>
-          <div class="stone-content">
-            <h2 class="stone-name">Obsidian</h2>
-            <div class="stone-meaning">PROTECTION • TRUTH • RELEASE</div>
-            <p class="stone-thai">สื่อถึงการปกป้อง การมองเห็นความจริง และการปล่อยสิ่งที่ไม่จำเป็น</p>
+            <p class="stone-thai">เป็นหินที่มีความหมายเด่นด้านความรักและความเมตตา เชื่อว่าช่วยเปิดใจ เสริมเสน่ห์ ความรักในตนเอง และความสัมพันธ์ที่ดี อีกทั้งยังช่วยสร้างความรู้สึกสงบและส่งเสริมการก้าวผ่านความรู้สึกด้านลบในอดีต </p>
           </div>
         </article>
 
         <article class="stone-card"
           style="--bg1:#6d596d;--bg2:#403140;--bg3:#201820;--stone1:#aa8cab;--stone2:#735573;--stone3:#452f48;">
-          <div class="stone-visual"></div>
-          <span class="stone-number">18</span>
+          <div class="stone-visual">
+            <img
+              class="stone-photo"
+              data-stone-image="17"
+              alt=""
+            >
+          </div>
+          <span class="stone-number">17</span>
           <div class="stone-content">
-            <h2 class="stone-name">Fluorite</h2>
+            <h2 class="stone-name">Adamite</h2>
             <div class="stone-meaning">FOCUS • ORDER • MENTAL CLARITY</div>
-            <p class="stone-thai">เหมาะกับช่วงที่ต้องการจัดระเบียบความคิด เพิ่มสมาธิ และลดความฟุ้งซ่าน</p>
+            <p class="stone-thai">เป็นหินที่เชื่อมโยงกับความคิดสร้างสรรค์ ความกระตือรือร้น และการมองโลกในแง่บวก </p>
           </div>
         </article>
 
@@ -1019,6 +1141,43 @@
   </footer>
 
   <script>
+    /* =========================
+       STONE IMAGE LOADER
+       วางรูปไว้ใน images/stones/
+       ใช้ชื่อไฟล์ 01 - 17
+       รองรับ .jpg / .png / .jpeg / .webp
+    ========================== */
+
+    document
+      .querySelectorAll(".stone-photo")
+      .forEach((image) => {
+        const stoneNumber = image.dataset.stoneImage;
+        const extensions = ["jpg", "png", "jpeg", "webp"];
+        let currentExtension = 0;
+
+        function tryStoneImage() {
+          if (currentExtension >= extensions.length) {
+            image.style.display = "none";
+            return;
+          }
+
+          image.src =
+            `images/stones/${stoneNumber}.${extensions[currentExtension]}`;
+        }
+
+        image.addEventListener("load", () => {
+          image.classList.add("loaded");
+          image.parentElement.classList.add("has-photo");
+        });
+
+        image.addEventListener("error", () => {
+          currentExtension += 1;
+          tryStoneImage();
+        });
+
+        tryStoneImage();
+      });
+
     const mobileMenu = document.getElementById("mobileMenu");
     const menuOpen = document.getElementById("menuOpen");
     const menuClose = document.getElementById("menuClose");
